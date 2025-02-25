@@ -4,10 +4,9 @@
 The current focus is on developing a web application for social media content generation using AI. The application will allow users to create personalized content for Twitter and Instagram based on reference tweets.
 
 ## Recent Changes
-- Set up the project using Next.js 14 with TypeScript and Tailwind CSS.
-- Implemented core components including the header, dashboard layout, and content generation page.
-- Created UI components such as buttons, dropdown menus, and cards.
-- Established a basic structure for account management and content generation.
+- Removed the top navigation bar to eliminate 404 errors on "Cuentas" and "Contenido".
+- Retained the left sidebar as the primary navigation.
+- Modified the "Nueva Cuenta" form to hide the "Tweets de Referencia" field when Instagram is selected.
 
 ## Next Steps
 - Implement additional features for content generation, including integration with AI services.

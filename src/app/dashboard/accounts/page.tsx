@@ -74,17 +74,19 @@ export default function AccountsPage() {
               <Input id="name" placeholder="Mi cuenta de Twitter" />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="reference-tweets">Tweets de Referencia</Label>
-              <Textarea
-                id="reference-tweets"
-                placeholder="Pega aquí algunos tweets que representen tu estilo de escritura (uno por línea)"
-                className="min-h-[150px]"
-              />
-              <p className="text-sm text-muted-foreground">
-                Estos tweets se utilizarán para analizar tu estilo y generar contenido similar.
-              </p>
-            </div>
+            {newAccountPlatform === "twitter" && (
+              <div className="space-y-2">
+                <Label htmlFor="reference-tweets">Tweets de Referencia</Label>
+                <Textarea
+                  id="reference-tweets"
+                  placeholder="Pega aquí algunos tweets que representen tu estilo de escritura (uno por línea)"
+                  className="min-h-[150px]"
+                />
+                <p className="text-sm text-muted-foreground">
+                  Estos tweets se utilizarán para analizar tu estilo y generar contenido similar.
+                </p>
+              </div>
+            )}
           </CardContent>
           <CardFooter className="flex justify-between">
             <Button variant="outline" onClick={() => setShowNewAccount(false)}>

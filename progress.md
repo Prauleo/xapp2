@@ -21,3 +21,7 @@
 - The application is running locally and accessible at http://localhost:3000.
 - Basic navigation between pages is functional.
 - The project is in the development phase, with ongoing work to implement additional features and enhancements.
+- Recent changes include:
+  - Removed the top navigation bar to eliminate 404 errors on "Cuentas" and "Contenido".
+  - Retained the left sidebar as the primary navigation.
+  - Modified the "Nueva Cuenta" form to hide the "Tweets de Referencia" field when Instagram is selected.
