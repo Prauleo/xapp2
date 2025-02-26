@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
+import { useAuth } from "@/contexts/AuthContext";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -15,16 +16,48 @@ interface DashboardWidget {
 }
 
 export default function DashboardPage() {
+  const { user, isLoading } = useAuth();
   const [layouts, setLayouts] = useState({
     lg: [
-      { i: "twitter-stats", x: 0, y: 0, w: 2, h: 2 },
-      { i: "instagram-stats", x: 2, y: 0, w: 2, h: 2 },
-      { i: "recent-content", x: 0, y: 2, w: 4, h: 2 },
-      { i: "quick-create", x: 4, y: 0, w: 2, h: 4 },
+      { i: "welcome", x: 0, y: 0, w: 6, h: 1 },
+      { i: "twitter-stats", x: 0, y: 1, w: 2, h: 2 },
+      { i: "instagram-stats", x: 2, y: 1, w: 2, h: 2 },
+      { i: "recent-content", x: 0, y: 3, w: 4, h: 2 },
+      { i: "quick-create", x: 4, y: 1, w: 2, h: 4 },
     ],
   });
 
+  const getWelcomeMessage = () => {
+    if (isLoading) return "Cargando...";
+    if (!user) return "Bienvenido a AI Content Creator";
+    
+    const userName = user.user_metadata?.full_name || user.email || "Usuario";
+    return `Bienvenido, ${userName}`;
+  };
+
   const widgets: DashboardWidget[] = [
+    {
+      id: "welcome",
+      title: "Bienvenida",
+      content: (
+        <div className="flex items-center gap-4">
+          {user?.user_metadata?.avatar_url && (
+            <img 
+              src={user.user_metadata.avatar_url} 
+              alt="Avatar" 
+              className="h-12 w-12 rounded-full"
+            />
+          )}
+          <div>
+            <h2 className="text-2xl font-bold">{getWelcomeMessage()}</h2>
+            <p className="text-muted-foreground">
+              {user?.email && `Correo: ${user.email}`}
+            </p>
+          </div>
+        </div>
+      ),
+      defaultSize: { w: 6, h: 1 },
+    },
     {
       id: "twitter-stats",
       title: "Estadísticas de Twitter",
@@ -81,6 +114,17 @@ export default function DashboardPage() {
   const onLayoutChange = (layout: any, layouts: any) => {
     setLayouts(layouts);
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex h-[50vh] items-center justify-center">
+        <div className="text-center">
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+          <p className="mt-2 text-sm text-muted-foreground">Cargando...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-4">
